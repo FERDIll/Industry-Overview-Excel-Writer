@@ -1,23 +1,17 @@
 Private Sub Workbook_Open()
-    Dim py As String
     Dim script As String
+    Dim logf As String
     Dim cmd As String
 
-    ' Use the python you actually use in Terminal:
-    ' Apple Silicon Homebrew usually:
-    py = "/opt/homebrew/bin/python3"
-    ' Intel Homebrew usually:
-    ' py = "/usr/local/bin/python3"
-
     script = ThisWorkbook.Path & "/" & "update_dashboard.py"
+    logf = ThisWorkbook.Path & "/" & "rk_update_log.txt"
 
     cmd = "/bin/zsh -lc " & Chr(34) & _
-          Chr(34) & py & Chr(34) & " " & _
-          Chr(34) & script & Chr(34) & " " & _
-          Chr(34) & ThisWorkbook.FullName & Chr(34) & Chr(34)
+          "python3 " & Chr(34) & script & Chr(34) & _
+          " > " & Chr(34) & logf & Chr(34) & " 2>&1" & Chr(34)
 
     Shell cmd, vbHide
 
-    Application.Wait Now + TimeValue("0:00:04")
+    Application.Wait Now + TimeValue("0:00:03")
     ThisWorkbook.RefreshAll
 End Sub
