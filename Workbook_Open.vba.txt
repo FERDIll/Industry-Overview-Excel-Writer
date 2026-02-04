@@ -1,6 +1,0 @@
-
-Private Sub Workbook_Open()
-    Shell "python3 update_dashboard.py " & Chr(34) & ThisWorkbook.FullName & Chr(34), vbHide
-    Application.Wait Now + TimeValue("0:00:03")
-    ThisWorkbook.RefreshAll
-End Sub
